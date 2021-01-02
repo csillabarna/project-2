@@ -127,7 +127,7 @@ To make this component work within the boundaries of this API was a challenge, h
 
 
 # Future enhancements.
- - We think this project would benefit from a moving carousel on the search page which could display featured movies theat theuser could explore.
+ - We think this project would benefit from a moving carousel on the search page which could display featured movies theat the user could explore.
 
 - create a wish list. 
 
