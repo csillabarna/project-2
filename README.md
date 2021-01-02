@@ -8,15 +8,13 @@ For my second General Assembly project we paired up and were tasked to create a 
 ## Brief 
 
 * **Consume a public API** – this could be anything but it must make sense for your project.
-* **Have several components** - At least one classical and one functional.
+* Have several components
 * **The app should include a router** - with several "pages".
-* **Include wireframes** - that you designed before building the app.
 * Have **semantically clean HTML** - you make sure you write HTML that makes structural sense rather than thinking about how it might look, which is the job of CSS.
-***Be deployed online** and accessible to the public.
+* Deploy it online so it's publicly accessible
 
-## Technologies Used
+# Technologies Used
  - React.js
- - SCSS
  - GitHub
  - Babel
  - Webpack
@@ -26,27 +24,27 @@ For my second General Assembly project we paired up and were tasked to create a 
 
 ## Approach Taken 
 The first step for this paired project was to decide on a theme for our app and the best API to use to bring our vision to life. 
-We wanted to create an app that would search for moives and TV programmes not only by name, but with additonal filters by type and/or year. We would be displayed the results on the page, each movie card being a link to more information.
-So we were whitboarded out the basic structure along with the functions and components.
-
-### Method 
-Create basic React structure and first build the logic to our main component the search. 
+We wanted to create an app that would search for movies and TV programmes not only by name, but with additional filters by type and/or year. We would display the results on the page, each card being a link to more information on the movie.
+Whiteboarding out the basic structure along with the functions and components.
+Next we created the basic React structure and built the logic to our main component the `search`. 
 
 ## Challenges 
- - Make the every serach filter work nicely together
- - Limited by the API to get only 10 results per page so we needed pagination to ensure that we could display all of the results. 
+ - Make the search filters work nicely together
+ - Adding pagination
+   - Might be a large number of results for a single query
+   - The API has a limit of 10 results per page. 
 
 **Search**
 
-In order to store the relevant property values to the Search component, we used the `useState` React hook. 
-We used axios to fetch the data from the API
+In order to store the relevant property values in the Search component, we used the `useState` React hook. 
+We used `axios` to fetch the data from the API
 
-1. To search for a key word, we got the input value from the search bar as a variable `{searched}`. This was then added to the URL to create the const plainUrl. 
-2. To add a varity of filters onto our search function we used radio buttons - movies, series, all - and also filtering by year. 
+1. To search for a key word, we got the input value from the search bar as a variable `{searched}`. This was then added to the URL to create the `plainUrl` variable
+2. To add a variety of filters onto our search function we used radio buttons - movies, series, all - and also filtering by year. 
 3. To achieve the filter as per the users request, we needed to implement an `if-else` statement to ensure that the function ran, no matter how many filters were being used at once. 
 4. We used the `useEffect` react hook to make the fetch only when needed - such as when a new filter or search was created. 
 
-```
+```javaScript
 const searchFunction = (searched, category, year, page) => {
     const plainUrl = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${searched}&page=${page}`
     const urlCategory = `${plainUrl}&type=${category}`
