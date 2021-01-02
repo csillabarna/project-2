@@ -32,35 +32,34 @@ const Search = () => {
 
   // Function being called depending on the search filter used. 
   // 1000 daily limit on the API
-  const searchFunction = (searched, category, year, page) => {
+
+  function buildUrl(category, year, page) {
     const plainUrl = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${searched}&page=${page}`
-    const urlCategory = `${plainUrl}&type=${category}`
-    const urlYear = `${plainUrl}&y=${year}`
-    const urlLong = `${urlCategory}&y=${year}`
-    let url = ''
 
     if (year && !category) {
-      url = urlYear
+      return `${plainUrl}&y=${year}`
     } else if (category && !year) {
-      url = urlCategory
+      return `${plainUrl}&type=${category}`
     } else if (year && category) {
-      url = urlLong
+      return `${plainUrl}&type=${category}&y=${year}`
     } else {
-      url = plainUrl
+      return plainUrl
     }
+  }
+
+  const searchFunction = (searched, category, year, page) => {
+    const url = buildUrl(category, year, page)
     if (searched) {
       axios.get(url)
-        .then(resp => {
-          updateDisplaySearch(resp.data.Search || [])
-          updateError(resp.data.Error || '')
-          updateNumResults(resp.data.totalResults)
+        .then(res => {
+          updateDisplaySearch(res.data.Search || [])
+          updateError(res.data.Error || '')
+          updateNumResults(res.data.totalResults)
         })
     }
   }
-  useEffect(() => {
-    return searchFunction(searched, category, year, page)
-  }, [searched, category, year, page])
 
+  useEffect(() => searchFunction(searched, category, year, page), [searched, category, year, page])
 
   // Rendering the elements onto the page 
   return <section id="search">
@@ -117,7 +116,7 @@ const Search = () => {
           onChange={(event) => updateYear(event.target.value)}
           value={year}
         />
-        </div>
+      </div>
     </div>
 
     {/* Mapping of the API to display searched for results, link used to take take user to further info of selected item */}
