@@ -20,7 +20,7 @@ For my second General Assembly project we paired up and were tasked to create a 
  - Webpack
  - Bulma
  - Insomnia
- - OMDB API
+ - REST API - OMDB 
 
 ## Approach Taken 
 The first step for this paired project was to decide on a theme for our app and the best API to use to bring our vision to life. 
@@ -36,48 +36,53 @@ Next we created the basic React structure and built the logic to our main compon
 
 **Search**
 
-In order to store the relevant property values in the Search component, we used the `useState` React hook. 
-We used `axios` to fetch the data from the API
+In order to store the relevant property values in the Search component, we used the `useState` React hook. Whenever the user updates their filters or search keyword the corresponding update functions are called and the state will change. 
 
-1. To search for a key word, we got the input value from the search bar as a variable `{searched}`. This was then added to the URL to create the `plainUrl` variable
-2. To add a variety of filters onto our search function we used radio buttons - movies, series, all - and also filtering by year. 
-3. To achieve the filter as per the users request, we needed to implement an `if-else` statement to ensure that the function ran, no matter how many filters were being used at once. 
-4. We used the `useEffect` react hook to make the fetch only when needed - such as when a new filter or search was created. 
+``` javaScript
+  const [searched, updateSearched] = useState('')
+  const [category, updateCategory] = useState('')
+  const [year, updateYear] = useState('')
+```
+
+If we have the keyword and the filters set, the next step is to build the correct URL. This is encapsulated in a separate function for clarity. 
+```javaScript
+function buildUrl(category, year, page) {
+    const plainUrl = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${searched}&page=${page}`
+
+    if (year && !category) {
+      return `${plainUrl}&y=${year}`
+    } else if (category && !year) {
+      return `${plainUrl}&type=${category}`
+    } else if (year && category) {
+      return `${plainUrl}&type=${category}&y=${year}`
+    } else {
+      return plainUrl
+    }
+  }
+  ```
+
+  Now that we have the complete URL we can utilise `axios` to make the HTTP request. Based on the response we update the user's view. As you can see below we do this in the `useEffect` react hook and do this every time the underlying state changes.
 
 ```javaScript
 const searchFunction = (searched, category, year, page) => {
-    const plainUrl = `https://www.omdbapi.com/?apikey=${process.env.API_KEY}&s=${searched}&page=${page}`
-    const urlCategory = `${plainUrl}&type=${category}`
-    const urlYear = `${plainUrl}&y=${year}`
-    const urlLong = `${urlCategory}&y=${year}`
-    let url = ''
-
-    if (year && !category) {
-      url = urlYear
-    } else if (category && !year) {
-      url = urlCategory
-    } else if (year && category) {¢
-      url = urlLong
-    } else {
-      url = plainUrl
-    }
+    const url = buildUrl(category, year, page)
     if (searched) {
       axios.get(url)
-        .then(resp => {
-          updateDisplaySearch(resp.data.Search || [])
-          updateError(resp.data.Error || '')
-          updateNumResults(resp.data.totalResults)
+        .then(res => {
+          updateDisplaySearch(res.data.Search || [])
+          updateError(res.data.Error || '')
+          updateNumResults(res.data.totalResults)
         })
     }
   }
-  useEffect(() => {
-    return searchFunction(searched, category, year, page)
-  }, [searched, category, year, page])
-  ```
+```
+```javaScript
+useEffect(() => searchFunction(searched, category, year, page), [searched, category, year, page])
+```
 
 Working example of the search function: 
 
-![search function working](./src/images/search.jpg)
+![search function working](./src/images/movieSearch.gif)
  
  
 
@@ -85,9 +90,9 @@ Working example of the search function:
   **Pagination**
 
   We imported the `Pagination` package component
-  To crack the API limit 10/page we used the the total results to work out the total number of pages in the pagination component.
+  to manage the API limit 10/page we used the the total results to work out the total number of pages in the pagination component.
 
-```
+```javaScript
  const Pager = ({ currentPage }) => {
     const pages = Math.ceil(numResults / POSTS_PER_PAGE)
     return (
@@ -99,47 +104,38 @@ Working example of the search function:
     )
   }
 ```
-After refactoring our plain URL to include the page number, we were able to implement the pagination to track the current page and to update. 
+After refactoring our plain URL to include the page number, we were able to implement the pagination to track and update the current page.
 
-To make this component work within the boundaries of this API was a challenge, however we managed to get it working well. 
+To make this component work within the boundaries of this API was a bit of a challenge, however we managed to get it working well. 
 
-![pagination function working](./src/images/pagination.jpg)
 
 ## Movie Page
 
  We used props to pull through the movie ID needed that would render the specific information for that film/programme onto the single movie page.
  We used react-router to link pages throughout our app.
 
-``` const Movie = (props) => {
+```javaScript
+  const Movie = (props) => {
   const movieId = props.match.params.movieId
-  const [movie, updateMovie] = useState([])
-  { console.log(movieId) }
-
-  useEffect(() => {
-    axios.get(`https://www.omdbapi.com/?apikey=${process.env.API_KEY}&i=${movieId}`)
-      .then(resp => {
-        updateMovie(resp.data)
-      })
-  }, []) 
-  
+  ...
+}
   ```
   
-
-
 # Future enhancements.
- - We think this project would benefit from a moving carousel on the search page which could display featured movies theat the user could explore.
+ - We think this project would benefit from a moving carousel on the search page which could display featured movies that the user could explore.
 
-- create a wish list. 
+- create a wishlist. 
 
-- With more time we would have like to have combined another API to provide more information 
+- With more time we would have liked to combine it with another API to provide more information 
 
 ## Summary
 
 Over the course of this hackathon, we became more comfortable with a variety of technical skills such as using APIs and pagination. 
 We can now confidently read the documentation and collect  the information from a public API.
-We solidified the knowledge to transfer information between components and make `fetch` requests to specific URLs by utilising `template literals`. 
+We solidified the knowledge to transfer information between `react` components and make `axios fetch` requests to specific URLs by utilizing `template literals`. 
 
 Lessons Learned:
-  - efficient ways to pair-programming
+  - efficient ways to pair-program
   - meeting strict deadlines 
-  - develop a presentation skills through the demo proccess
+  - develop presentation skills through the demo process
+  - using `REST API` and display it on `react` UI
