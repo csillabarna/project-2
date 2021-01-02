@@ -18,6 +18,7 @@ For my second General Assembly project we paired up and were tasked to create a 
  - GitHub
  - Babel
  - Webpack
+ - SCSS
  - Bulma
  - Insomnia
  - REST API - OMDB 
