@@ -4,9 +4,9 @@
 
 ## Overview
 For my second General Assembly project we paired up with Rachel Beale and we were tasked to create a multi-page app using an API of our choosing within 48 hours. 
-You can find the deployed app here: [Movie Search](csillabarna.github.io/project-2/)
+You can find the deployed app here --> [The Movie Search](csillabarna.github.io/project-2/)
 
-Working example of the app
+Working example ⬇
 
 ![search](./src/images/movieSearch.gif)
 
