@@ -121,14 +121,14 @@ To make this component work within the boundaries of this API was a bit of a cha
   ```
 ## Challenges
 
-- Right and efficient way of using and passing `props` between `React Components`.
+ - Right and efficient way of using and passing `props` between `React Components`
  - Make the search filters work nicely together
  - Adding pagination
  - Might be a large number of results for a single query
- - The API has a limit of 10 results per page. 
+ - The API has a limit of 10 results per page
 
 
-## Future enhancements
+## Future Enhancements
  - We think this project would benefit from a moving carousel on the search page which could display featured movies that the user could explore.
 - Create a wishlist.
 - With more time we would have liked to combine it with another API to provide more information.
