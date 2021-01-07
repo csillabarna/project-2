@@ -6,6 +6,9 @@
 For my second General Assembly project we paired up with Rachel Beale and were tasked to create a multi-page app using an API of our choosing within 48 hours. 
 You can find the deployed app here: [Movie Search](csillabarna.github.io/project-2/)
 
+Working example of the app 
+![search](./src/images/movieSearch.gif)
+
 ## Brief 
 
 * **Consume a public API** – this could be anything but it must make sense for your project.
@@ -30,11 +33,6 @@ We wanted to create an app that would search for movies and TV programmes not on
 Whiteboarding out the basic structure along with the functions and components.
 Next we created the basic React structure and built the logic to our main component the `search`. 
 
-## Challenges 
- - Make the search filters work nicely together
- - Adding pagination
-   - Might be a large number of results for a single query
-   - The API has a limit of 10 results per page. 
 
 **Search**
 
@@ -82,14 +80,11 @@ const searchFunction = (searched, category, year, page) => {
 useEffect(() => searchFunction(searched, category, year, page), [searched, category, year, page])
 ```
 
-Working example of the search function: 
-
-![search function working](./src/images/movieSearch.gif)
- 
+![search function working](./src/images/search.jpg)
  
 
 
-  **Pagination**
+**Pagination**
 
   We imported the `Pagination` package component
   to manage the API limit 10/page we used the the total results to work out the total number of pages in the pagination component.
@@ -109,6 +104,7 @@ Working example of the search function:
 After refactoring our plain URL to include the page number, we were able to implement the pagination to track and update the current page.
 
 To make this component work within the boundaries of this API was a bit of a challenge, however we managed to get it working well. 
+![](./src/images/pagination.jpg)
 
 
 ## Movie Page
@@ -124,13 +120,17 @@ To make this component work within the boundaries of this API was a bit of a cha
   ```
 ## Challenges
 
-- Right and efficent way of using and passing `props` between `React Components`.
-- Since it was the  first `React` app that I worked with someone else we were new to create a realistic idea of the MVP.
+- Right and efficient way of using and passing `props` between `React Components`.
+ - Make the search filters work nicely together
+ - Adding pagination
+ - Might be a large number of results for a single query
+ - The API has a limit of 10 results per page. 
+
 
 ## Future enhancements
  - We think this project would benefit from a moving carousel on the search page which could display featured movies that the user could explore.
 - Create a wishlist.
-- With more time we would have liked to combine it with another API to provide more information .
+- With more time we would have liked to combine it with another API to provide more information.
 
 ## Lessons Learned
 
@@ -139,7 +139,7 @@ To make this component work within the boundaries of this API was a bit of a cha
   - meeting strict deadlines 
   - using `REST API` and display it on `react` UI
   
-## Summary
+# Summary
 
 Over the course of this hackathon, we became more comfortable with a variety of technical skills such as using APIs and pagination. 
 We can now confidently read the documentation and collect  the information from a public API.
