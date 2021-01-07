@@ -3,7 +3,8 @@
 # Movie Search 🎬 
 
 ## Overview
-For my second General Assembly project we paired up and were tasked to create a multi-page app using an API of our choosing within 48 hours. 
+For my second General Assembly project we paired up with Rachel Beale and were tasked to create a multi-page app using an API of our choosing within 48 hours. 
+You can find the deployed app here: [Movie Search](csillabarna.github.io/project-2/)
 
 ## Brief 
 
@@ -21,7 +22,7 @@ For my second General Assembly project we paired up and were tasked to create a 
  - SCSS
  - Bulma
  - Insomnia
- - REST API - OMDB 
+ - REST API - [OMDB](http://www.omdbapi.com/) 
 
 ## Approach Taken 
 The first step for this paired project was to decide on a theme for our app and the best API to use to bring our vision to life. 
@@ -121,22 +122,26 @@ To make this component work within the boundaries of this API was a bit of a cha
   ...
 }
   ```
-  
-# Future enhancements.
+## Challenges
+
+- Right and efficent way of using and passing `props` between `React Components`.
+- Since it was the  first `React` app that I worked with someone else we were new to create a realistic idea of the MVP.
+
+## Future enhancements
  - We think this project would benefit from a moving carousel on the search page which could display featured movies that the user could explore.
+- Create a wishlist.
+- With more time we would have liked to combine it with another API to provide more information .
 
-- create a wishlist. 
+## Lessons Learned
 
-- With more time we would have liked to combine it with another API to provide more information 
-
+  - efficient ways to pair-program
+  - develop presentation skills through the demo process
+  - meeting strict deadlines 
+  - using `REST API` and display it on `react` UI
+  
 ## Summary
 
 Over the course of this hackathon, we became more comfortable with a variety of technical skills such as using APIs and pagination. 
 We can now confidently read the documentation and collect  the information from a public API.
 We solidified the knowledge to transfer information between `react` components and make `axios fetch` requests to specific URLs by utilizing `template literals`. 
 
-Lessons Learned:
-  - efficient ways to pair-program
-  - meeting strict deadlines 
-  - develop presentation skills through the demo process
-  - using `REST API` and display it on `react` UI
